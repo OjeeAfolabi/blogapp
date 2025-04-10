@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const SignUp = () => {
-  const [username, setUsername] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   async function signup(e) {
     e.preventDefault();
     await fetch("http://localhost:5000/signup", {
       method: "POST",
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        email,
+        password,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,9 +24,21 @@ const SignUp = () => {
     <form onSubmit={signup}>
       <input
         type="text"
-        placeholder="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="firstname"
+        value={firstname}
+        onChange={(e) => setFirstname(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="lastname"
+        value={lastname}
+        onChange={(e) => setLastname(e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <input
         type="password"
@@ -27,7 +46,7 @@ const SignUp = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Sign Up</button>
+      <button>Sign Up</button>
     </form>
   );
 };
