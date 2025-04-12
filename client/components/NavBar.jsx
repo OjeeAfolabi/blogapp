@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "/logo.png";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
+  useEffect(() => {
+    fetch("http://localhost:5000/profile", {
+      credentials: "include",
+    })
+  }, []);
   return (
     <nav className="bg-[#829079] flex justify-between items-center px-4 mb-10 ">
       <div>
