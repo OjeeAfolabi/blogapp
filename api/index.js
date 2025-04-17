@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const PORT = 5000;
 const mongoose = require("mongoose");
-const UserModel = require("./models/user");
+const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
@@ -21,7 +21,7 @@ app.use(
 );
 app.use(cookieParser());
 
-// MongoDB connection
+// // MongoDB connection
 
 mongoose
   .connect(
@@ -30,86 +30,57 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-//Routes
 app.post("/signup", async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
   try {
-    const existingUser = await UserModel.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json("User already exists");
-    }
-    // create a new user
-    const userData = await UserModel.create({
+    const userDoc = await User.create({
       firstname,
       lastname,
       email,
       password: bcrypt.hashSync(password, salt),
     });
-
-    jwt.sign(
-      { email: userData.email, id: userData._id },
-      secret,
-      {},
-      (err, token) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ message: "Internal server error" });
-        }
-        console.log("Generated Token:", token);
-        res
-          .cookie("token", token, {
-            httpOnly: true,
-            sameSite: "none",
-            secure: false,
-            maxAge: 1000 * 60 * 60 * 24, // 1 day
-          })
-          .json({ message: "Sign up successful", user: userData });
-      }
-    );
+    res.json(userDoc);
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(400).json(error.message);
   }
 });
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  try {
-    const userData = await UserModel.findOne({ email });
-    if (!userData) {
-      return res.status(400).json("User not found");
-    }
-    const passwordCheck = bcrypt.compareSync(password, userData.password);
-    
-
-    if (passwordCheck) {
-      jwt.sign({ email, id: userData._id }, secret, {}, (err, token) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ message: "Internal server error" });
-        }
-        console.log("Generated Token:", token);
-        res
-          .cookie("token", token, {
-            httpOnly: true,
-            sameSite: "none",
-            secure: false,
-            maxAge: 1000 * 60 * 60 * 24, // 1 day
-          })
-          .json({ user: userData });
-      });
-    } else {
-      res.status(400).json("Wrong credentials");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+  const userDoc = await User.findOne({ email });
+  if (!userDoc) return res.status(400).json("User not found");
+  const passOk = bcrypt.compareSync(password, userDoc.password);
+  if (passOk) {
+    jwt.sign(
+      { email: userDoc.email, id: userDoc._id },
+      secret,
+      {},
+      (err, token) => {
+        if (err) throw err;
+        res.cookie("token", token).json({
+          id: userDoc._id,
+          email
+        });
+      }
+    );
+  } else {
+    res.status(400).json("Wrong credentials");
   }
 });
 
-app.get('/profile', (req, res) => {
-  
-})
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.get("/profile", (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+  res.json(req.cookies);
 });
+
+app.post("/logout", (req, res) => {
+  res.cookie("token", "").json("ok");
+  <>
+  </>
+});
+app.listen(5000);
+

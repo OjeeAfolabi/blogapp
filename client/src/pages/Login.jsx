@@ -1,54 +1,38 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { Navigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
+
 
 const Login = () => {
-  const [logDetails, setLogDetails] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const {setUserInfo} = useContext(UserContext)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLogDetails({ ...logDetails, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
+  async function login(e) {
     e.preventDefault();
-    if (!logDetails.email || !logDetails.password) {
-      toast.error("Please fill in all fields!", {
+    const response = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", 
+    });
+    if (response.ok) {
+      response.json().then(userInfo =>{
+        setUserInfo(userInfo)
+        setRedirect(true);
+      })
+      toast.success("Login successful!", {
         autoClose: 1500,
         position: "top-right",
-      });
-      return;
-    }
-
-    try {
-      // Send data to backend using fetch
-      const response = await fetch("http://localhost:5000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+        style: {
+          backgroundColor: "green",
+          color: "white",
         },
-        credentials: "include",
-        body: JSON.stringify({
-          email: logDetails.email,
-          password: logDetails.password,
-        }),
       });
-      // const data = await response.json();
 
-      if (response.ok) {
-        toast.success("Login successful!", {
-          autoClose: 1500,
-          position: "top-right",
-          style: {
-            backgroundColor: "green",
-            color: "white",
-          },
-        });
-        setRedirect(true);
+
       } else {
         const errorMessage = await response.json();
         if (errorMessage === "User not found") {
@@ -61,40 +45,34 @@ const Login = () => {
             autoClose: 1500,
             position: "top-right",
           });
-        } 
+        }
       }
-    } catch {
-      // Handle network errors
-      toast.error("Network error. Please try again!", {
-        autoClose: 1500,
-        position: "top-right",
-      });
     }
-  };
+
   if (redirect) {
     return <Navigate to={"/"} />;
   }
+
   return (
-    <>
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={login}>
         <input
           type="email"
           placeholder="email"
-          value={logDetails.email}
-          name="email"
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="password"
-          value={logDetails.password}
-          name="password"
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Log In</button>
+        <button>Log In</button>
       </form>
-    </>
+    </div>
   );
 };
 
 export default Login;
+
