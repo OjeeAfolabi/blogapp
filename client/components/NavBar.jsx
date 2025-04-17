@@ -28,7 +28,7 @@ const NavBar = () => {
   };
   const email = userInfo?.email
   return (
-    <nav className="bg-[#829079] flex justify-between items-center px-4 mb-10">
+    <nav className="bg-[#829079] flex justify-between items-center px-4">
       <Link to="/">
         <img className="w-10 py-2" src={logo} alt="Logo" />
       </Link>
@@ -38,7 +38,7 @@ const NavBar = () => {
           <>
             <Link to="/createpost">Create New Post</Link>
             <div className="bg-[#b9925e] w-[2px] h-6"></div>
-            <a onClick={logout}>Log Out</a>
+            <a href="/login" onClick={logout}>Log Out</a>
           </>
         ) : (
           <>

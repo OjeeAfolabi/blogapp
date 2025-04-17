@@ -59,7 +59,7 @@ app.post("/login", async (req, res) => {
         if (err) throw err;
         res.cookie("token", token).json({
           id: userDoc._id,
-          email
+          email,
         });
       }
     );
@@ -70,17 +70,15 @@ app.post("/login", async (req, res) => {
 
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
+  if (!token) return res.status(400).json("No token provided");
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err;
     res.json(info);
   });
-  res.json(req.cookies);
 });
 
 app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
-  <>
-  </>
 });
-app.listen(5000);
 
+app.listen(5000);
