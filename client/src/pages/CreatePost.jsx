@@ -1,43 +1,40 @@
-import React from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import React, { useState } from "react";
+// import {toast} from "react-toastify";
 
 const CreatePost = () => {
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
+  const [files, setFiles] = useState("");
+  const [content, setContent] = useState("");
+  const [author, setAuthor] = useState("");
+  const [date, setDate] = useState("");
+  
+   const createNewPost = async (e)=>{
+    const data = new FormData();
+    data.set("title", title);
+    data.set("summary", summary);
+    data.set("file", files[0]);
+    data.set("date", date);
+    data.set("content", content);
+    data.set("author", author); 
+    
+      e.preventDefault();  
+   const response = await   fetch("http://localhost:5000/createpost", {
+        method: "POST",
+        body: data,
+      })
+      console.log(await response.json)
+  }
+
   return (
-    <form className="">
-        <div className="flex justify-center  items-center bg-[#f0f0f0] h-dvh">
-      <div className="bg-white shadow-md rounded-lg p-8 w-[40%] mt-10">
-        <h2 className="text-2xl font-bold mb-6 text-center">Create a Post</h2>
-        <form>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="title">
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              className="border border-gray-300 rounded-lg px-4 py-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2" htmlFor="content">
-              Content
-            </label>
-            <textarea
-              id="content"
-              rows="4"
-              className="border border-gray-300 rounded-lg px-4 py-2 w-full"
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            className="bg-[#829079] text-white font-bold py-2 px-4 rounded-lg w-full hover:bg-[#b9925e] transition duration-200"
-          >
-            Create Post
-          </button>
-        </form>
-      </div>
-    </div>
+    <form onSubmit={createNewPost}>
+      <input type="text" value={title} placeholder={"Title"} onChange={(e)=>setTitle(e.target.value)} />
+      <input type="summary" value={summary} placeholder={"Summary"} onChange={(e) => setSummary(e.target.value)} />
+      <input type="file" onChange={e=>setFiles(e.target.files)} />
+      <textarea value={content} cols={30} rows={10} onChange={(e)=>setContent(e.target.value)}></textarea>
+      <input type="text" placeholder={"Author"} value={author} onChange={(e)=> setAuthor(e.target.value)} />
+      <input type="date" value={date} placeholder={"Date"} onChange={(e)=> setDate(e.target.value)} />
+      <button type="submit">Create Post</button>
     </form>
   );
 };
