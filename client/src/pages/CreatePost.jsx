@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 
 const CreatePost = () => {
   return (
-    <form>
+    <form className="">
         <div className="flex justify-center  items-center bg-[#f0f0f0] h-dvh">
       <div className="bg-white shadow-md rounded-lg p-8 w-[40%] mt-10">
         <h2 className="text-2xl font-bold mb-6 text-center">Create a Post</h2>
