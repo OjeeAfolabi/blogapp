@@ -26,29 +26,33 @@ const NavBar = () => {
       setUserInfo(null);
     });
   };
-  const email = userInfo?.email
+  const email = userInfo?.email;
   return (
-    <nav className="bg-[#829079] flex justify-between items-center px-4">
-      <Link to="/">
-        <img className="w-10 py-2" src={logo} alt="Logo" />
-      </Link>
+    <>
+      <nav className="bg-[#829079] flex justify-between items-center px-4">
+        <Link to="/">
+          <img className="w-10 py-2" src={logo} alt="Logo" />
+        </Link>
 
-      <div className="flex items-center gap-4">
-        {email ? (
-          <>
-            <Link to="/createpost">Create New Post</Link>
-            <div className="bg-[#b9925e] w-[2px] h-6"></div>
-            <a href="/login" onClick={logout}>Log Out</a>
-          </>
-        ) : (
-          <>
-            <Link to="/login">Log In</Link>
-            <div className="bg-[#b9925e] w-[2px] h-6"></div>
-            <Link to="/signup">Sign Up</Link>
-          </>
-        )}
-      </div>
-    </nav>
+        <div className="flex items-center gap-4">
+          {email ? (
+            <>
+              <Link to="/createpost">Create New Post</Link>
+              <div className="bg-[#b9925e] w-[2px] h-6"></div>
+              <a href="/login" onClick={logout}>
+                Log Out
+              </a>
+            </>
+          ) : (
+            <>
+              <Link to="/login">Log In</Link>
+              <div className="bg-[#b9925e] w-[2px] h-6"></div>
+              <Link to="/signup">Sign Up</Link>
+            </>
+          )}
+        </div>
+      </nav>
+    </>
   );
 };
 

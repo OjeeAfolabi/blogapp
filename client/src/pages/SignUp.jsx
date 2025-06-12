@@ -1,5 +1,5 @@
 import { useState } from "react";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import React from "react";
 
@@ -11,13 +11,28 @@ const SignUp = () => {
 
   async function signup(e) {
     e.preventDefault();
-    await fetch("http://localhost:5000/signup", {
+    const response = await fetch("http://localhost:5000/signup", {
       method: "POST",
       body: JSON.stringify({ firstname, lastname, email, password }),
       headers: { "Content-Type": "application/json" },
     });
+
+    if (response.ok) {
+      toast.success("Sign up successful!", {
+        position: "top-right",
+        autoClose: 1000,
+        closeOnClick: true,
+        theme: "light",
+        style: {
+          backgroundColor: "green",
+          color: "white",
+        },
+      });
+    }
   }
+
  
+
   return (
     <div>
       <form onSubmit={signup}>

@@ -4,6 +4,7 @@ const cors = require("cors");
 const PORT = 5000;
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const Post = require("./models/post");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
@@ -84,13 +85,21 @@ app.post("/logout", (req, res) => {
   res.cookie("token", "").json("ok");
 });
 
-app.post("/createpost", uploadMiddleware.single("file"), (req, res) => {
+app.post("/createpost", uploadMiddleware.single("file"), async (req, res) => {
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
-  res.json({ ext });
+  const { title, summary, content} = req.body;
+  const postDoc = await Post.create({
+    title,
+    summary,
+    content,
+    cover: newPath,
+  });
+  res.json(postDoc);  // res.json(files.req.file);
 });
+
 app.listen(5000);
 console.log("Server is running on port", PORT);
