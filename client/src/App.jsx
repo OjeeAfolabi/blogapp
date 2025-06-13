@@ -5,10 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
 import Login from "./pages/Login";
+import IndexPage from "./pages/IndexPage";
 import SignUp from "./pages/SignUp";
 import { UserContextProvider } from "./UserContext";
 import CreatePost from "./pages/CreatePost";
-
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route index element={<IndexPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/createpost" element={<CreatePost />} />

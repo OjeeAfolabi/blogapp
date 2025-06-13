@@ -101,5 +101,9 @@ app.post("/createpost", uploadMiddleware.single("file"), async (req, res) => {
   res.json(postDoc);  // res.json(files.req.file);
 });
 
+app.get("/createpost", async (req, res) => {
+  res.json(await Post.find());
+});
+
 app.listen(5000);
 console.log("Server is running on port", PORT);

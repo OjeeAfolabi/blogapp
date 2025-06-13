@@ -39,7 +39,7 @@ const CreatePost = () => {
       toast.success("Post created successfully!"),
         {
           position: "top-right",
-          autoClose: 1000,
+          autoClose: 100,
           closeOnClick: true,
           theme: "light",
           style: {
