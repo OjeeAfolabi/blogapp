@@ -3,7 +3,7 @@ import Post from "../../components/Post";
 const IndexPage = () => {
   const [posts, setPosts] = React.useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/createpost").then((response) => {
+    fetch("http://localhost:5000/post").then((response) => {
       response.json().then((posts) => {
         setPosts(posts);
       });

@@ -21,6 +21,7 @@ const CreatePost = () => {
     const response = await fetch("http://localhost:5000/createpost", {
       method: "POST",
       body: data,
+      credentials: "include",
     });
     if (!title || !summary || !content|| !file) {
       toast.error("All fields are required!", {
@@ -79,6 +80,7 @@ const CreatePost = () => {
         rows={10}
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
+      
      
     
       <button type="submit">Create Post</button>

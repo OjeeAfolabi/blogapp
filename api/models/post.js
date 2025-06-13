@@ -19,6 +19,8 @@ const PostSchema = new Schema(
       type: String,
       required: [true, "please upload a cover image"],
     },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    createdAt: { type: Date, default: Date.now }
   },
   { timestamps: true }
 );
