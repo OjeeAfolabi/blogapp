@@ -29,7 +29,7 @@ const NavBar = () => {
   const email = userInfo?.email;
   return (
     <>
-      <nav className="bg-[#829079] flex justify-between items-center px-4">
+      <nav className="fixed top-0 left-0 w-full z-[9999] shadow-[#829079] shadow-sm bg-[#829079] flex justify-between items-center px-4">
         <Link to="/">
           <img className="w-10 py-2" src={logo} alt="Logo" />
         </Link>

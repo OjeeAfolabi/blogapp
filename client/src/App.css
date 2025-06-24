@@ -2,8 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-h2{
-    font-weight: 600;
-    font-size: 1.5rem;
-    margin-top: 0;
+h2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+body {
+  font-family: sans-serif;
+  height: 100vh;
+  background: url()
+}
+
+.Toastify__toast-container {
+  z-index: 10000 !important;
+}
+.Toastify__toast {
+  font-size: 0.7rem;
+  padding: 1rem;
+    border-radius: 0.5rem;
 }

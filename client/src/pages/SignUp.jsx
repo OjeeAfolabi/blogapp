@@ -2,12 +2,14 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 const SignUp = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   async function signup(e) {
     e.preventDefault();
@@ -16,7 +18,6 @@ const SignUp = () => {
       body: JSON.stringify({ firstname, lastname, email, password }),
       headers: { "Content-Type": "application/json" },
     });
-
     if (response.ok) {
       toast.success("Sign up successful!", {
         position: "top-right",
@@ -28,10 +29,26 @@ const SignUp = () => {
           color: "white",
         },
       });
-    }
+      setRedirect(true);
+    } else {
+      toast.error("Sign up failed. Please try again.", {
+        position: "top-right",
+        autoClose: 1000,
+        closeOnClick: true,
+        theme: "light",
+        style: {
+          backgroundColor: "white",
+          color: "red",
+        },
+      });
+  }
   }
 
  
+
+  if (redirect) {
+    return <Navigate to={"/login"} />;
+  }
 
   return (
     <div>

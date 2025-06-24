@@ -37,17 +37,19 @@ const CreatePost = () => {
       return;
     }
     if (response.ok) {
-      toast.success("Post created successfully!"),
-        {
+      toast.success("Post created successfully!",
+         {
           position: "top-right",
-          autoClose: 100,
           closeOnClick: true,
+          autoClose: 1000,
           theme: "light",
           style: {
             backgroundColor: "green",
             color: "white",
           },
-        };
+        }
+      );
+       
       setRedirect(true);
     }
   };

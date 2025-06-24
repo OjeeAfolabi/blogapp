@@ -24,6 +24,7 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 // // MongoDB connection
 
@@ -110,10 +111,17 @@ app.post("/createpost", uploadMiddleware.single("file"), async (req, res) => {
 
 app.get("/post", async (req, res) => {
   const posts = await Post.find()
-  .sort({ createdAt: -1 })
+    .sort({ createdAt: -1 })
     .populate("author", "firstname")
+    .limit(30);
   res.json(posts);
 });
 
-app.listen(5000);
+app.get("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const postDoc = await Post.findById(id).populate("author", "firstname");
+  res.json(postDoc);
+});
+
+app.listen(PORT);
 console.log("Server is running on port", PORT);
