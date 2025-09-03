@@ -23,7 +23,7 @@ const PostPage = () => {
         {postInfo.title}
       </h1>
         <div className=" mx-auto">
-          <img src={`http://localhost:5000/${postInfo.cover}`} className="w-[700px] h-[200px] object-cover rounded-md mx-auto"  alt="" />
+          <img src={`http://localhost:5000/${postInfo.cover}`} className="w-[700px] h-[200px] object-cover rounded-md mx-auto my-4"  alt="" />
         </div>
         <time className="text-zinc-600 font-medium text-[12px]">
         {postInfo.createdAt

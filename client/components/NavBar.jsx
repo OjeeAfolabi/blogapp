@@ -27,6 +27,7 @@ const NavBar = () => {
     });
   };
   const email = userInfo?.email;
+  const firstname = userInfo?.firstname;
   return (
     <>
       <nav className="fixed top-0 left-0 w-full z-[9999] shadow-[#829079] shadow-sm bg-[#829079] flex justify-between items-center px-4">
@@ -42,6 +43,7 @@ const NavBar = () => {
               <a href="/login" onClick={logout}>
                 Log Out
               </a>
+              <div>({firstname})</div>
             </>
           ) : (
             <>

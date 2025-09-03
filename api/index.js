@@ -65,6 +65,7 @@ app.post("/login", async (req, res) => {
         res.cookie("token", token).json({
           id: userDoc._id,
           email,
+          firstname: userDoc.firstname,
         });
       }
     );
@@ -76,9 +77,14 @@ app.post("/login", async (req, res) => {
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   if (!token) return res.status(400).json("No token provided");
-  jwt.verify(token, secret, {}, (err, info) => {
+  jwt.verify(token, secret, {}, async(err, info) => {
     if (err) throw err;
-    res.json(info);
+     const user = await User.findById(info.id);
+    res.json({
+      email: user.email,
+      firstname: user.firstname, 
+    });
+    
   });
 });
 
