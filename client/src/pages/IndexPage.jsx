@@ -1,20 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Post from "../../components/Post";
+import { UserContext } from "../UserContext";
+
 const IndexPage = () => {
   const [posts, setPosts] = React.useState([]);
+  const { userInfo } = useContext(UserContext);
+
+  console.log("User Info in IndexPage:", userInfo);
+
   useEffect(() => {
-    fetch("http://localhost:5000/post").then((response) => {
-      response.json().then((posts) => {
-        setPosts(posts);
+    if (userInfo) {
+      fetch("http://localhost:5000/post").then((response) => {
+        response.json().then((posts) => {
+          setPosts(posts);
+        });
       });
-    });
-  }, []);
-  return (
-    <>
-      {posts.length > 0 &&
-        posts.map((post) => <Post {...post} key={post._id} />)}
-    </>
-  );
+    }
+  }, [userInfo]);
+
+  if (!userInfo) {
+    return <div>User not logged in</div>;
+  } else {
+    return (
+      <>
+        {posts.length > 0 &&
+          posts.map((post) => <Post {...post} key={post._id} />)}
+      </>
+    );
+  }
 };
 
 export default IndexPage;

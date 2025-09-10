@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const { setUserInfo, userInfo } = useContext(UserContext);
-  // const {email} = userInfo || {};
   useEffect(() => {
     fetch("http://localhost:5000/profile", {
       credentials: "include",
@@ -30,10 +29,14 @@ const NavBar = () => {
   const firstname = userInfo?.firstname;
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[9999] shadow-[#829079] shadow-sm bg-[#829079] flex justify-between items-center px-4">
+      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-4 -z-[-1000] bg-[#b9925e]">
         <Link to="/">
           <img className="w-10 py-2" src={logo} alt="Logo" />
         </Link>
+
+        <div>
+          <h1 className="text-3xl font-bold">STORYGRID</h1>
+        </div>
 
         <div className="flex items-center gap-4">
           {email ? (

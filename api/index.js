@@ -76,7 +76,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
-  if (!token) return res.status(400).json("No token provided");
+  if (!token) return res.status(400).json(null);
   jwt.verify(token, secret, {}, async(err, info) => {
     if (err) throw err;
      const user = await User.findById(info.id);
