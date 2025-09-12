@@ -41,43 +41,51 @@ const SignUp = () => {
           color: "red",
         },
       });
+    }
   }
-  }
-
- 
 
   if (redirect) {
     return <Navigate to={"/login"} />;
   }
 
   return (
-    <div>
-      <form onSubmit={signup}>
+    <div className="bg-red-600 p-8 min-h-screen flex items-center justify-center">
+      <form
+        className="bg-white p-6 rounded shadow w-full max-w-md"
+        onSubmit={signup}
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <input
           type="text"
-          placeholder="firstname"
+          placeholder="Firstname"
           value={firstname}
           onChange={(e) => setFirstname(e.target.value)}
+          className="w-full mb-4 p-2 border rounded"
         />
         <input
           type="text"
-          placeholder="lastname"
+          placeholder="Lastname"
           value={lastname}
           onChange={(e) => setLastname(e.target.value)}
+          className="w-full mb-4 p-2 border rounded"
         />
         <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-4 p-2 border rounded"
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-6 p-2 border rounded"
         />
-        <button>Sign Up</button>
+        <button className="w-full bg-red-600 text-white py-2 rounded font-semibold hover:bg-red-700 transition">
+          Sign Up
+        </button>
       </form>
     </div>
   );

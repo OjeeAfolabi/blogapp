@@ -19,7 +19,7 @@ const IndexPage = () => {
   }, [userInfo]);
 
   if (!userInfo) {
-    return <div>User not logged in</div>;
+    return <div>null</div>;
   } else {
     return (
       <>

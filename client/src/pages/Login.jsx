@@ -50,7 +50,7 @@ const Login = () => {
     }
 
   if (redirect) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/index"} />;
   }
 
   return (
@@ -75,4 +75,3 @@ const Login = () => {
 };
 
 export default Login;
-

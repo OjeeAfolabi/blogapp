@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
 h2 {
   font-weight: 600;
   font-size: 1.5rem;
@@ -9,9 +18,9 @@ h2 {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   height: 100vh;
-  background: url()
+  background: url();
 }
 
 .Toastify__toast-container {
@@ -20,7 +29,7 @@ body {
 .Toastify__toast {
   font-size: 0.7rem;
   padding: 1rem;
-    border-radius: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 @layer base {
@@ -76,14 +85,5 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

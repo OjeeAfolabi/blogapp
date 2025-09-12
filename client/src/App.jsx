@@ -10,6 +10,8 @@ import SignUp from "./pages/SignUp";
 import { UserContextProvider } from "./UserContext";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
+import Home from "./pages/Home";
+import SignLog from "./pages/SignLog";
 
 function App() {
   return (
@@ -17,10 +19,13 @@ function App() {
       <UserContextProvider>
         <ToastContainer hideProgressBar={true} />
         <Routes>
+          <Route index element={<Home />} />
+          <Route path="/signlog" element={<SignLog />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+
           <Route path="/" element={<Layout />}>
-            <Route index element={<IndexPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/index" element={<IndexPage />} />
             <Route path="/createpost" element={<CreatePost />} />
             <Route path="/post/:id" element={<PostPage />} />
           </Route>

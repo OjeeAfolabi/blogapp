@@ -2,7 +2,7 @@
 import React from "react";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../src/UserContext";
-import logo from "/logo.png";
+// import logo from "/logo.png";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
@@ -29,15 +29,7 @@ const NavBar = () => {
   const firstname = userInfo?.firstname;
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-4 -z-[-1000] bg-[#b9925e]">
-        <Link to="/">
-          <img className="w-10 py-2" src={logo} alt="Logo" />
-        </Link>
-
-        <div>
-          <h1 className="text-3xl font-bold">STORYGRID</h1>
-        </div>
-
+      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-4 -z-[-1000]  bg-orange-500">
         <div className="flex items-center gap-4">
           {email ? (
             <>
@@ -50,9 +42,6 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <Link to="/login">Log In</Link>
-              <div className="bg-[#b9925e] w-[2px] h-6"></div>
-              <Link to="/signup">Sign Up</Link>
             </>
           )}
         </div>
