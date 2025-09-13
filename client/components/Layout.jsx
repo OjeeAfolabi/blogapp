@@ -9,11 +9,9 @@ const Layout = () => {
   return (
     <div>
       <NavBar />
-      <main className="pt-16">{
-        <Outlet />
-        }</main>
+      <main>{<Outlet />}</main>
     </div>
   );
 };
 
-export default Layout; 
+export default Layout;

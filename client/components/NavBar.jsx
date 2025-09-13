@@ -29,7 +29,7 @@ const NavBar = () => {
   const firstname = userInfo?.firstname;
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-4 -z-[-1000]  bg-orange-500">
+      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-4 bg-orange-500">
         <div className="flex items-center gap-4">
           {email ? (
             <>
@@ -42,6 +42,7 @@ const NavBar = () => {
             </>
           ) : (
             <>
+            <div>mag</div>
             </>
           )}
         </div>
