@@ -111,7 +111,7 @@ const SignLog = () => {
         >
           <div className="absolute left-0 top-0 w-1/2 h-full flex flex-col justify-center items-center text-white  z-10 ">
             <h1 className="text-3xl font-bold">Hello, Welcome!</h1>
-            <p>Don't have an account</p>
+            <p>Don't have an account?</p>
             <button className="bg-transparent border-2 px-6 py-1 mt-4 rounded-md">
               Sign Up
             </button>
