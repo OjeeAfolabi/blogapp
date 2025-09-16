@@ -13,6 +13,3 @@ i {
   color: #888;
 }
 
-#container.active #toggle-box::before {
-  left: 50%;
-}
