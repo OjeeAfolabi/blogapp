@@ -23,8 +23,10 @@ const IndexPage = () => {
   } else {
     return (
       <>
-        {posts.length > 0 &&
+      <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
+          {posts.length > 0 &&
           posts.map((post) => <Post {...post} key={post._id} />)}
+      </div>
       </>
     );
   }

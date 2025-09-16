@@ -29,21 +29,60 @@ const NavBar = () => {
   const firstname = userInfo?.firstname;
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-4 bg-orange-500">
-        <div className="flex items-center gap-4">
+      <nav className="fixed top-0 left-0 w-full flex items-center py-4 px-4 bg-orange-500 z-10">
+        <div className="flex  w-full items-center justify-between">
           {email ? (
             <>
-              <Link to="/createpost">Create New Post</Link>
-              <div className="bg-[#b9925e] w-[2px] h-6"></div>
-              <a href="/login" onClick={logout}>
-                Log Out
-              </a>
-              <div>({firstname})</div>
+              <div>
+                <Link
+                  to="/index"
+                  className="text-4xl font-elianto text-darkcharcoal"
+                >
+                  MAGZILOG
+                </Link>
+              </div>
+              <div className="flex items-center gap-2 w-full">
+                <div className="ml-4 text-xl">
+                  <Link to="/index" className="  text-darkcharcoal">
+                    Home
+                  </Link>
+                </div>
+                <div className="text-xl">
+                  <Link to="/index" className="  text-darkcharcoal">
+                    My Blogs
+                  </Link>
+                </div>
+
+                <div className="text-xl">
+                  <Link to="/index" className="  text-darkcharcoal">
+                    All Blogs
+                  </Link>
+                </div>
+                <div className="text-xl">
+                  <Link to="/index" className="  text-darkcharcoal">
+                    Latest Posts
+                  </Link>
+                </div>
+              </div>
+              <div className="flex text-xl gap-2  w-[30%]">
+                <div>
+                  <Link to="/createpost">Create New Post</Link>
+                </div>
+                <span>
+                  <div className="bg-[#b9925e] w-[2px] h-6"></div>
+                </span>
+                <div>
+                  <Link href="/login" onClick={logout}>
+                    Log Out
+                  </Link>
+                </div>
+                <div>
+                  <div>({firstname})</div>
+                </div>
+              </div>
             </>
           ) : (
-            <>
-            <div>mag</div>
-            </>
+            <></>
           )}
         </div>
       </nav>

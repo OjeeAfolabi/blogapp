@@ -9,6 +9,7 @@ const SignLog = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-darkblue to-lightblue flex flex-col items-center justify-center p-6">
       <div
+        id="container"
         className={`relative rounded-[30px] bg-slate-100 w-[750px] h-[450px] shadow-[0_0_30px_rgba(0,0,0,0.2)]
         transition-all duration-700 ease-in-out overflow-hidden`}
       >
