@@ -24,8 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/" element={<Layout />}>
-                    <Route path="/signlog" element={<SignLog />} />
-
+            <Route path="/signlog" element={<SignLog />} />
             <Route path="/index" element={<IndexPage />} />
             <Route path="/createpost" element={<CreatePost />} />
             <Route path="/post/:id" element={<PostPage />} />

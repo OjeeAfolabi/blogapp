@@ -1,12 +1,19 @@
-//import { useEffect } from "react";
-import React from "react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { UserContext } from "../src/UserContext";
-// import logo from "/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SignOutModal from "../src/prompt/SignOutModal";
 
-const NavBar = () => {
+const NavBar = ({ setOverflow }) => {
   const { setUserInfo, userInfo } = useContext(UserContext);
+  const [logoutModal, setLogoutModal] = useState(false);
+  const navigate = useNavigate();
+
+  const signoutHandler = () => {
+    setLogoutModal(true);
+    setOverflow("hidden");
+  };
+
   useEffect(() => {
     fetch("http://localhost:5000/profile", {
       credentials: "include",
@@ -23,16 +30,17 @@ const NavBar = () => {
       method: "POST",
     }).then(() => {
       setUserInfo(null);
+      navigate("/signlog");
     });
   };
   const email = userInfo?.email;
   const firstname = userInfo?.firstname;
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full flex items-center py-4 px-4 bg-orange-500 z-10">
-        <div className="flex  w-full items-center justify-between">
-          {email ? (
-            <>
+      {email ? (
+        <>
+          <nav className="fixed top-0 left-0 w-full flex items-center py-4 px-4 bg-orange-500 z-10">
+            <div className="flex  w-full items-center justify-between">
               <div>
                 <Link
                   to="/index"
@@ -72,20 +80,26 @@ const NavBar = () => {
                   <div className="bg-[#b9925e] w-[2px] h-6"></div>
                 </span>
                 <div>
-                  <Link href="/login" onClick={logout}>
-                    Log Out
-                  </Link>
+                  <button onClick={signoutHandler}>Log Out</button>
                 </div>
                 <div>
                   <div>({firstname})</div>
                 </div>
               </div>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>
-      </nav>
+            </div>
+          </nav>
+
+          {logoutModal &&
+            ReactDOM.createPortal(
+              <SignOutModal
+                setLogoutModal={setLogoutModal}
+                setOverflow={setOverflow}
+                logout={logout}
+              />,
+              document.getElementById("portal")
+            )}
+        </>
+      ) : null}
     </>
   );
 };
